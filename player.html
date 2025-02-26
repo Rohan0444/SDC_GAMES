@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Squid Game Player Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #111;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+    .player-card {
+      background: #222;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+      box-shadow: 0 4px 8px #E84481;
+      cursor: pointer;
+    }
+    .player-card:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 16px #E84481;
+    }
+    .player-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .player-card:hover img {
+      transform: rotate(5deg) scale(1.1);
+    }
+    .backstory {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px #E84481;
+      text-align: center;
+      color: white;
+      width: 60%;
+      z-index: 1000;
+    }
+    .close-btn {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background: #E84481;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    input {
+      margin: 10px;
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #ccc;
+      border-radius: 15px;
+      font-size: 16px;
+      text-align: center;
+    }
+    input:focus {
+      outline: none;
+      border: 2px solid #E84481;
+      box-shadow: 2px 2px 2px #E84481;
+    }
+    input.error {
+      border: 2px solid red;
+    }
+    small.error-message {
+      color: red;
+      font-size: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SDC Game Player Search</h1>
+    <input type="text" id="search" placeholder="Search by player number or name...">
+    <div class="grid" id="playerGrid"></div>
+  </div>
+
+  <div class="backstory" id="backstory">
+    <h2 id="backstoryTitle"></h2>
+    <p id="backstoryText"></p>
+    <button class="close-btn" onclick="closeBackstory()">Close</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const playerGrid = document.getElementById("playerGrid");
+      const searchInput = document.getElementById("search");
+      const backstoryModal = document.getElementById("backstory");
+      const backstoryTitle = document.getElementById("backstoryTitle");
+      const backstoryText = document.getElementById("backstoryText");
+
+      // 1. Array with player name, id, and one image per player
+      const playersInfo = [
+        { id: 691, name: "Aashu Bhaskar", image: "info-right.png" },
+        { id: 209, name: "Abhinay Kumar", image: "info-right.png" },
+        { id: 371, name: "Amogh Kawathalkar", image: "info-right.png" },
+        { id: 293, name: "Balireddi Pavan Sai", image: "info-right.png" },
+        { id: 860, name: "Bharath Bhushan Ravinuthala", image: "info-right.png" },
+        { id: 259, name: "Ch Tharun", image: "info-right.png" },
+        { id: 320, name: "D V Rishit", image: "info-right.png" },
+        { id: 154, name: "DVS Pranav Reddy", image: "info-right.png" },
+        { id: 302, name: "Gopaluni Sreevignesh", image: "info-right.png" },
+        { id: 725, name: "Harshit Yadav", image: "info-right.png" },
+        { id: 243, name: "Kaustubh Deshmukh", image: "info-right.png" },
+        { id: 667, name: "Krishna", image: "info-right.png" },
+        { id: 715, name: "Krithika Reddy Jakkula", image: "info-right.png" },
+        { id: 741, name: "Mohtasim", image: "info-right.png" },
+        { id: 325, name: "Movaliya Yug Shaileshbhai", image: "info-right.png" },
+        { id: 482, name: "Nasika Sasank", image: "info-right.png" },
+        { id: 869, name: "P Rohith Krishna", image: "info-right.png" },
+        { id: 904, name: "P Rishik Karthik", image: "info-right.png" },
+        { id: 527, name: "Palacharla Sri Satya Naveen", image: "info-right.png" },
+        { id: 134, name: "Pothuganti Hemanth Sai", image: "info-right.png" },
+        { id: 784, name: "Punit Sharma", image: "info-right.png" },
+        { id: 479, name: "Rishabh Chandel", image: "info-right.png" },
+        { id: 586, name: "Rituraj Mishra", image: "info-right.png" },
+        { id: 815, name: "Saladi Dinesh", image: "info-right.png" },
+        { id: 531, name: "Shashank Dixit", image: "info-right.png" },
+        { id: 648, name: "Sree Pramukh", image: "info-right.png" },
+        { id: 602, name: "Srikanth Vuppala", image: "info-right.png" },
+        { id: 937, name: "Sumeet Mohanty", image: "info-right.png" },
+        { id: 410, name: "Teja Sree Charan", image: "info-right.png" },
+        { id: 578, name: "V Avinash", image: "info-right.png" },
+        { id: 956, name: "Vaibhav Prasad", image: "info-right.png" },
+        { id: 198, name: "Vedansh Sharma", image: "info-right.png" }
+      ];
+
+      // 2. Build backstories array from playersInfo, adding a team number (cycling through 1 to 4)
+      const backstories = playersInfo.map((player, index) => {
+        const teamNumber = (index % 4) + 1;
+        return {
+          id: player.id,
+          text: `${player.name} backstory: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Team no: ${teamNumber}.`
+        };
+      });
+
+      // Display players in the grid
+      function displayPlayers(playersArray) {
+        playerGrid.innerHTML = playersArray
+          .map(player => `
+            <div class="player-card" onclick="showBackstory(${player.id})">
+              <img src="${player.image}" alt="${player.name}">
+              <h2>${player.name}</h2>
+              <p>Player #${player.id}</p>
+            </div>
+          `)
+          .join("");
+      }
+
+      // When a player is clicked, show the corresponding backstory modal
+      window.showBackstory = function(playerId) {
+        const player = playersInfo.find(p => p.id === playerId);
+        const playerBackstory = backstories.find(b => b.id === playerId);
+        if (!player) return;
+        backstoryTitle.innerText = `${player.name} - Player #${player.id}`;
+        backstoryText.innerText = playerBackstory ? playerBackstory.text : "No backstory found.";
+        backstoryModal.style.display = "block";
+      };
+
+      // Close the backstory modal
+      window.closeBackstory = function() {
+        backstoryModal.style.display = "none";
+      };
+
+      // Filter players based on search input
+      searchInput.addEventListener("input", function() {
+        const query = searchInput.value.toLowerCase();
+        const filteredPlayers = playersInfo.filter(
+          player =>
+            player.name.toLowerCase().includes(query) ||
+            player.id.toString().includes(query)
+        );
+        displayPlayers(filteredPlayers);
+      });
+
+      // Initial display of all players
+      displayPlayers(playersInfo);
+    });
+  </script>
+</body>
+</html>
