@@ -538,16 +538,6 @@ small.error-message {
     }
 }
 
-@media (max-width: 1185px) {
-    .image-class, .front {
-        display: none;
-    }
-    #mydiv, .body {
-        height: 100%;
-    }
-
-}
-
 @media (max-width: 810px) {
     .ply {
         display: none;
@@ -559,9 +549,6 @@ small.error-message {
         display: none;
     }
     .squid {
-        display: none;
-    }
-    .content-right{
         display: none;
     }
     .content-left{
