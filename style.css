@@ -171,10 +171,13 @@ body{
    display: flex;
    flex-direction: row;
    justify-content: space-between;
-   
    animation: slidefromright 2s ease forwards;
    
 }
+#myDiv {
+    height: auto;
+}
+
 @keyframes slidefromright {
     0%{
         opacity: 0;
@@ -538,6 +541,9 @@ small.error-message {
 @media (max-width: 1185px) {
     .image-class, .front {
         display: none;
+    }
+    #mydiv, .body {
+        height: 100%;
     }
 
 }
