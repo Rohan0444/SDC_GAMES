@@ -198,6 +198,9 @@
             height: 170px;
             width: 200px;
         }
+        .not-req {
+            display: none;
+        }
     </style>
 </head>
 <body id="body_ele">
@@ -213,9 +216,9 @@
                 <option value="Alive">Alive</option>
                 <option value="Eliminated">Eliminated</option>
             </select>
-            <input type="number" id="count" placeholder="Enter number to eliminate" style="width: 10rem;">
-            <button id="elim">Eliminate</button>
-            <button id="next-round">Next Round</button>
+            <input class="not-req" type="number" id="count" placeholder="Enter number to eliminate" style="width: 10rem;">
+            <button class="not-req" id="elim">Eliminate</button>
+            <button class="not-req" id="next-round">Next Round</button>
         </div>
 
         <div class="stats">
@@ -269,6 +272,14 @@
         roundsSurvived: 0
     }));
 
+    let targetIDs = [691, 667, 586];
+    targetIDs.forEach(targetID => {
+        let participant = participants.find(p => p.id === targetID);
+        if (participant) {
+            participant.status = "Eliminated";
+        }
+    });
+    
     let roundData = [32];  
     let roundLabels = ["Round 1"];
 
@@ -366,8 +377,7 @@
             div.addEventListener("click", () => {
                 modalContent.innerHTML = `
                     <span> Player ID: ${p.id}</span>
-                    <br><span> Status: ${p.status}</span>
-                    <br><span> Rounds survived: ${p.roundsSurvived}</span>`;
+                    <br><span> Status: ${p.status}</span>`;
                 modal.style.display = "block";
                 overlay.style.display = "block";
             });
