@@ -119,7 +119,7 @@
       const playersInfo = [
         { id: 691, name: "Aashu Bhaskar", image: "info-right.png" },
         { id: 209, name: "Abhinay Kumar", image: "info-right.png" },
-        { id: 371, name: "Amogh Kawathalkar", image: "info-right.png" },
+        { id: 699, name: "Krish Vanza", image: "info-right.png" },
         { id: 293, name: "Balireddi Pavan Sai", image: "info-right.png" },
         { id: 860, name: "Bharath Bhushan Ravinuthala", image: "info-right.png" },
         { id: 259, name: "Ch Tharun", image: "info-right.png" },
@@ -137,7 +137,7 @@
         { id: 904, name: "P Rishik Karthik", image: "info-right.png" },
         { id: 527, name: "Palacharla Sri Satya Naveen", image: "info-right.png" },
         { id: 134, name: "Pothuganti Hemanth Sai", image: "info-right.png" },
-        { id: 784, name: "Punit Sharma", image: "info-right.png" },
+        { id: 456, name: "Aditya Mayank", image: "info-right.png" },
         { id: 479, name: "Rishabh Chandel", image: "info-right.png" },
         { id: 586, name: "Rituraj Mishra", image: "info-right.png" },
         { id: 815, name: "Saladi Dinesh", image: "info-right.png" },
@@ -146,21 +146,54 @@
         { id: 602, name: "Srikanth Vuppala", image: "info-right.png" },
         { id: 937, name: "Sumeet Mohanty", image: "info-right.png" },
         { id: 410, name: "Teja Sree Charan", image: "info-right.png" },
-        { id: 578, name: "V Avinash", image: "info-right.png" },
+        { id: 103, name: "Abhinav B", image: "info-right.png" },
         { id: 956, name: "Vaibhav Prasad", image: "info-right.png" },
         { id: 198, name: "Vedansh Sharma", image: "info-right.png" }
       ];
 
-      // 2. Build backstories array from playersInfo, adding a team number (cycling through 1 to 4)
-      const backstories = playersInfo.map((player, index) => {
-        const teamNumber = (index % 4) + 1;
-        return {
-          id: player.id,
-          text: `${player.name} backstory: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Team no: ${teamNumber}.`
-        };
-      });
+      const backstories = [
+        { id: 482, text: "Nasika Sasank, a doctor, has sworn to heal but may need to fight to survive. Team no: 1." },
+        { id: 715, text: "Krithika Reddy Jakkula, a scientist, is approaching this as the ultimate experiment. Team no: 1." },
+        { id: 302, text: "Gopaluni Sreevignesh, a poet, hopes to write his own survival story. Team no: 1." },
+        { id: 937, text: "Sumeet Mohanty, an escape artist, is hoping his skills will get him out alive. Team no: 1." },
 
-      // Display players in the grid
+        { id: 410, text: "Teja Sree Charan, a fisherman, is casting his net carefully to avoid elimination. Team no: 2." },
+        { id: 320, text: "D V Rishit, a brilliant engineer, is calculating every move strategically. Team no: 2." },
+        { id: 154, text: "DVS Pranav Reddy, a fearless stuntman, thrives in high-pressure situations. Team no: 2." },
+        { id: 869, text: "P Rohith Krishna, a mountaineer, is ready to climb the ranks to victory. Team no: 2." },
+
+        { id: 134, text: "Pothuganti Hemanth Sai, a historian, is determined not to become history himself. Team no: 3." },
+        { id: 259, text: "Ch Tharun, a gambler, has bet everything on surviving the Squid Game. Team no: 3." },
+        { id: 815, text: "Saladi Dinesh, a bouncer, is used to handling high-stress situations. Team no: 3." },
+        { id: 904, text: "P Rishik Karthik, a gamer, has been training for life-and-death simulations for years. Team no: 3." },
+
+        { id: 325, text: "Movaliya Yug Shaileshbhai, a stock trader, knows when to take risks and when to play it safe. Team no: 4." },
+        { id: 725, text: "Harshit Yadav, a martial artist, is ready to fight his way to the top. Team no: 4." },
+        { id: 531, text: "Shashank Dixit, an artist, hopes to paint his own fate in this game. Team no: 4." },
+        { id: 699, text: "Krish Vanza, a hacker, has already cracked half the game’s algorithms. Team no: 4." },
+
+        { id: 103, text: "Abhinav B, an entrepreneur, is treating this as his most ruthless startup venture. Team no: 5." },
+        { id: 860, text: "Bharath Bhushan Ravinuthala was a magician, hoping to make his competitors disappear. Team no: 5." },
+        { id: 648, text: "Sree Pramukh, a pilot, is navigating his way through the toughest flight of his life. Team no: 5." },
+        { id: 741, text: "Mohtasim, an illusionist, is ready to outsmart and deceive his opponents. Team no: 5." },
+
+        { id: 293, text: "Balireddi Pavan Sai, an ex-Olympian, is ready to sprint through every challenge. Team no: 6." },
+        { id: 209, text: "Abhinay Kumar, a former detective, is here to uncover secrets while staying alive. Team no: 6." },
+        { id: 602, text: "Srikanth Vuppala, a scientist, is using logic to break down every challenge. Team no: 6." },
+        { id: 956, text: "Vaibhav Prasad, a firefighter, is used to high-pressure scenarios. Team no: 6." },
+
+        { id: 243, text: "Kaustubh Deshmukh, a fisherman, is skilled at staying afloat in any storm. Team no: 7." },
+        { id: 667, text: "Krishna, an ex-soldier, brings tactical knowledge to the competition. Team no: 7." },
+        { id: 479, text: "Rishabh Chandel, a professional sprinter, is always a step ahead. Team no: 7." },
+        { id: 586, text: "Rituraj Mishra, a mathematician, is treating this like the ultimate probability puzzle. Team no: 7." },
+
+        { id: 456, text: "Aditya Mayank, a con artist, knows how to manipulate situations to his advantage. Team no: 8." },
+        { id: 691, text: "Aashu Bhaskar was once a chess prodigy, now testing his luck in this deadly game. Team no: 8." },
+        { id: 527, text: "Palacharla Sri Satya Naveen, a chef, is cooking up a strategy to stay alive. Team no: 8." },
+        { id: 198, text: "Vedansh Sharma, a detective, is trying to solve the mystery of this deadly game. Team no: 8." }
+      ];
+
+
       function displayPlayers(playersArray) {
         playerGrid.innerHTML = playersArray
           .map(player => `

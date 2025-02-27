@@ -213,7 +213,7 @@
                 <option value="Alive">Alive</option>
                 <option value="Eliminated">Eliminated</option>
             </select>
-            <input type="number" id="count" placeholder="Enter number to eliminate" min="1">
+            <input type="number" id="count" placeholder="Enter number to eliminate" style="width: 10rem;">
             <button id="elim">Eliminate</button>
             <button id="next-round">Next Round</button>
         </div>
@@ -252,14 +252,22 @@
     let winner = document.querySelector(".winner");
 
     let round = 1;
-    let participants = [];
-    for (let i = 1; i <= 32; i++) {
-        participants.push({ 
-            id: i, 
-            status: "Alive",
-            roundsSurvived: 0
-        });
-    }
+    let playerIDs = [
+        691, 209, 699, 293,  // Team 1
+        860, 259, 320, 154,  // Team 2
+        302, 725, 243, 667,  // Team 3
+        715, 741, 325, 482,  // Team 4
+        869, 904, 527, 134,  // Team 5
+        456, 479, 586, 815,  // Team 6
+        531, 648, 602, 937,  // Team 7
+        410, 103, 956, 198   // Team 8
+    ];
+
+    let participants = playerIDs.map(id => ({
+        id: id,
+        status: "Alive",
+        roundsSurvived: 0
+    }));
 
     let roundData = [32];  
     let roundLabels = ["Round 1"];
@@ -290,7 +298,7 @@
     }
 
     function eliminate(id) {
-        if (isNaN(id) || id < 1 || id > 32) {
+        if (isNaN(id) || id < 1 || id > 999) {
             alert("Please enter a valid player number between 1 and 32.");
             return;
         }
