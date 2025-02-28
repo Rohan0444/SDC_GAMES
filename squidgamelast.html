@@ -225,7 +225,7 @@
         </div>
 
         <div class="stats">
-            <h2>Round: <span id="round-counter">5</span></h2>
+            <h2>Round: <span id="round-counter">6</span></h2>
             <h2>Players Remaining: <span id="remaining-players">32</span></h2>
         </div>
         <div class="winner"></div>
@@ -257,6 +257,45 @@
     const nextRoundButton = document.getElementById("next-round");
     let winner = document.querySelector(".winner");
 
+    function showWinner(winnerName) {
+        // Create overlay for blur effect
+        const overlay = document.createElement("div");
+        overlay.style.position = "fixed";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        overlay.style.backdropFilter = "blur(8px)";
+        overlay.style.zIndex = "999";
+
+        // Create winner alert box
+        const alertBox = document.createElement("div");
+        alertBox.textContent = `🎉 ${winnerName} 🎉`;
+        alertBox.style.position = "fixed";
+        alertBox.style.top = "50%";
+        alertBox.style.left = "50%";
+        alertBox.style.transform = "translate(-50%, -50%)";
+        alertBox.style.backgroundColor = "black";
+        alertBox.style.color = "white";
+        alertBox.style.padding = "20px";
+        alertBox.style.fontSize = "24px";
+        alertBox.style.borderRadius = "10px";
+        alertBox.style.zIndex = "1000";
+
+        // Append elements to the body
+        document.body.appendChild(overlay);
+        document.body.appendChild(alertBox);
+
+        // Remove elements after 3 seconds
+        setTimeout(() => {
+            overlay.remove();
+            alertBox.remove();
+        }, 3000);
+    }
+
+    showWinner("ID:482, Nasika Sasank is the winner of the SDC GAMES 2025");
+
     let round = 2;
     let playerIDs = [
         691, 209, 699, 293,  // Team 1
@@ -276,7 +315,8 @@
     }));
 
     let targetIDs = [293,209,602,956,243,691,479,586,103,860,648,741,456,
-    667,527,198,154,904,531,302,725,699,410,320,815,134,715,937,259,325];
+    667,527,198,154,904,531,302,725,699,410,320,815,134,715,937,259,325,
+    ];
     targetIDs.forEach(targetID => {
         let participant = participants.find(p => p.id === targetID);
         if (participant) {
