@@ -201,6 +201,9 @@
         .not-req {
             display: none;
         }
+        #roundsStatsChart {
+            display: none;
+        }
     </style>
 </head>
 <body id="body_ele">
@@ -222,7 +225,7 @@
         </div>
 
         <div class="stats">
-            <h2>Round: <span id="round-counter">1</span></h2>
+            <h2>Round: <span id="round-counter">2</span></h2>
             <h2>Players Remaining: <span id="remaining-players">32</span></h2>
         </div>
         <div class="winner"></div>
@@ -254,7 +257,7 @@
     const nextRoundButton = document.getElementById("next-round");
     let winner = document.querySelector(".winner");
 
-    let round = 1;
+    let round = 2;
     let playerIDs = [
         691, 209, 699, 293,  // Team 1
         860, 259, 320, 154,  // Team 2
@@ -281,7 +284,7 @@
     });
     
     let roundData = [32];  
-    let roundLabels = ["Round 1"];
+    let roundLabels = ["Round 2"];
 
     const ctx = document.getElementById('roundStatsChart').getContext('2d');
     const survivalChart = new Chart(ctx, {
